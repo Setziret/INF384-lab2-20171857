@@ -90,3 +90,5 @@ Veo que dice que schira-pucp no existe,
 Puede ser porque antes la organización tenia otro nombre, pero se la cambie por facilidad. Que puedo hacer  en ese caso? 
 
 
+### Uso de Gemini
+Para la elaboración de la función de la parte 3 def calcular_descuento_envio_especial. 

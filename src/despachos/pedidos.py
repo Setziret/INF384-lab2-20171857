@@ -80,3 +80,41 @@ def agrupar_por_cliente(pedidos: list[Pedido]) -> dict[str, list[Pedido]]:
 
 def pedidos_abiertos(pedidos: list[Pedido]) -> list[Pedido]:
     return [p for p in pedidos if not p.esta_cerrado()]
+
+def calcular_descuento_envio_especial(
+    distancia_km: float, 
+    peso_kg: float, 
+    tipo_cliente: str, 
+    es_feriado: bool
+) -> float:
+    """Calcula la tarifa especial de envío con reglas de negocio avanzadas."""
+    descuento_base = 0.0
+    
+    if tipo_cliente == "VIP":
+        descuento_base += 0.15
+        if peso_kg > 20.0:
+            descuento_base += 0.05
+    elif tipo_cliente == "CORPORATIVO":
+        descuento_base += 0.10
+        if distancia_km > 100.0:
+            descuento_base += 0.05
+    else:
+        if distancia_km < 10.0 and peso_kg < 5.0:
+            descuento_base += 0.02
+
+    if es_feriado:
+        if tipo_cliente != "VIP":
+            descuento_base -= 0.05
+        else:
+            descuento_base += 0.02
+
+    if distancia_km > 500.0:
+        descuento_base += 0.08
+
+    # Garantizar límites en el descuento
+    if descuento_base < 0.0:
+        return 0.0
+    elif descuento_base > 0.35:
+        return 0.35
+
+    return round(descuento_base, 2)
